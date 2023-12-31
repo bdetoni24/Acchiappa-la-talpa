@@ -17,6 +17,25 @@
         }
         main{
             position: relative;
+            margin: auto;
+            background-color: red;
+            width: 500px;
+        }
+        nav{
+            background-color: red;
+            width: 500px;
+            margin: auto;
+            text-align: center;
+        }
+        nav .box, nav p{
+            display: inline;
+        }
+        nav p{
+            background-color: green;
+            margin: 10px;
+        }
+        #campoGioco{
+            width: 500px;
         }
     </style>
 </head>
@@ -25,15 +44,41 @@
         <h1>Acchiappa la talpa</h1>
     </header>
     <nav>
-        <a href="">Nuova partita</a>
-        <a href="">Termina partita</a>
+        <div class="box">
+            <p>Talpe Colpite: 0</p>
+        </div>
+        <div class="box">
+            <p>Vite rimaste: 10</p>
+        </div>
+        <div class="box">
+            <p>Timer: 0:00</p>
+        </div>
     </nav>
     <main>
         <img id="campoGioco"src="campoGioco.jpg" alt="campo da gioco">
-        <img id="talpa" src="talpa.png" alt="talpa">
+        <img id="talpa" onclick="talpaColpita()" src="talpa.png" alt="talpa">
     </main>
     <footer>
         <p>Sito creato da De Toni Bernardo</p>
     </footer>
 </body>
+
+<script>
+    //dichiarazione elementi html
+    let talpaColpita;
+    let cambioPosizioneTalpa;
+
+    //funzione necessaria per l'utilizzo delle jQuery
+    $(document).ready(function(){
+        talpaColpita = function(){
+            cambioPosizioneTalpa();
+        }
+
+        cambioPosizioneTalpa = function(){
+            let altezzaCampo = $("#campoGioco").height();
+            let larghezzaCampo = $("#campoGioco").width();
+            console.log("altezza: "+altezzaCampo+"\nlarghezza: "+larghezzaCampo);
+        }
+    });
+</script>
 </html>
