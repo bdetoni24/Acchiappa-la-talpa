@@ -7,9 +7,22 @@
     <title>Acchiappa la talpa</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
+        body{
+            background-color: rgb(16, 164, 6);
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        header{
+            text-align: center;
+        }
+
         footer {
             position: fixed;
             bottom: 0;
+        }
+
+        footer p{
+            text-align: center;
         }
 
         #talpa {
@@ -23,25 +36,28 @@
         main {
             position: relative;
             margin: auto;
-            background-color: red;
             width: 500px;
+            margin-top: 10px;
         }
 
         nav {
-            background-color: red;
+            background-color: green;
             width: 500px;
+            height: 30px;
             margin: auto;
             text-align: center;
         }
 
-        nav .box,
-        nav p {
+        nav .box, nav p {
             display: inline;
+            margin: auto;
         }
 
         nav p {
-            background-color: green;
-            margin: 10px;
+            background-color: red;
+            margin: auto;
+            margin-left: 10px;
+            margin-right: 10px;
         }
 
         #campoGioco {
