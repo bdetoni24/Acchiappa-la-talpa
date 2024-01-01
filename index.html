@@ -98,17 +98,21 @@
     //dichiarazione variabili
     let talpeColpite = 0;
     let viteRimaste = 10;
+    let secondi = 0;
 
     //dichiarazione funzioni
     let talpaColpita;
     let cambioPosizioneTalpa;
     let campoColpito;
     let fineGioco;
+    let timer;
 
     //funzione necessaria per l'utilizzo delle jQuery
     $(document).ready(function () {
 
         talpaColpita = function () {
+            talpeColpite++;
+            $(".talpeColpite").text("Talpe colpite: " + talpeColpite);
             cambioPosizioneTalpa();
         }
 
@@ -122,7 +126,15 @@
         }
 
         fineGioco = function () {
+            //blocco il gioco annullando le funzioni
+            talpaColpita = null;
+            campoColpito = null;
+            clearInterval(timer);
 
+            //faccio visualizzare il popup
+            $("#fineGiocoPopUp").css({
+                "display": "block"
+            });
         }
 
         cambioPosizioneTalpa = function () {
@@ -144,6 +156,29 @@
                 "left": x
             });
         }
+
+        //formatta i secondi nella stringa timer
+        function formatTime(totalSeconds) {
+            const minutes = Math.floor(totalSeconds / 60);
+            const remainingSeconds = totalSeconds % 60;
+            return minutes + ':' + pad(remainingSeconds, 2);
+        }
+
+        //aggiunge zeri davanti ai numeri
+        function pad(number, length) {
+            let str = '' + number;
+            while (str.length < length) {
+                str = '0' + str;
+            }
+            return str;
+        }
+
+        //imposto un intervallo di 1s per il timer
+        timer = setInterval(function() {
+            secondi++;
+            const formattedTime = formatTime(secondi);
+            $('.timer').text('Timer: ' + formattedTime);
+        }, 1000);
 
         //di default faccio comparire la talpa in una posizione diversa ad ogni caricamento
         cambioPosizioneTalpa();
