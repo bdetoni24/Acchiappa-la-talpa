@@ -1,84 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acchiappa la talpa</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
-        footer{
+        footer {
             position: fixed;
-            bottom:0;
+            bottom: 0;
         }
-        #talpa{
+
+        #talpa {
             position: absolute;
-            top:0;
+            top: 0;
             left: 0;
+            width: 100px;
+            height: 100px;
         }
-        main{
+
+        main {
             position: relative;
             margin: auto;
             background-color: red;
             width: 500px;
         }
-        nav{
+
+        nav {
             background-color: red;
             width: 500px;
             margin: auto;
             text-align: center;
         }
-        nav .box, nav p{
+
+        nav .box,
+        nav p {
             display: inline;
         }
-        nav p{
+
+        nav p {
             background-color: green;
             margin: 10px;
         }
-        #campoGioco{
+
+        #campoGioco {
             width: 500px;
+        }
+
+        #fineGiocoPopUp {
+            width: 300px;
+            background-color: red;
+            margin: auto;
+            text-align: center;
+            position: fixed;
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 99999;
         }
     </style>
 </head>
+
 <body>
     <header>
         <h1>Acchiappa la talpa</h1>
     </header>
     <nav>
         <div class="box">
-            <p>Talpe Colpite: 0</p>
+            <p class="talpeColpite">Talpe Colpite: 0</p>
         </div>
         <div class="box">
-            <p>Vite rimaste: 10</p>
+            <p class="viteRimaste">Vite rimaste: 10</p>
         </div>
         <div class="box">
-            <p>Timer: 0:00</p>
+            <p class="timer">Timer: 0:00</p>
         </div>
     </nav>
     <main>
-        <img id="campoGioco"src="campoGioco.jpg" alt="campo da gioco">
+        <img id="campoGioco" onclick="campoColpito()" src="campoGioco.jpg" alt="campo da gioco">
         <img id="talpa" onclick="talpaColpita()" src="talpa.png" alt="talpa">
     </main>
     <footer>
         <p>Sito creato da De Toni Bernardo</p>
     </footer>
+    <div id="fineGiocoPopUp" style="display: none;">
+        <h2>Fine gioco!</h2>
+        <div id="statistiche">
+            <p class="talpeColpite">Talpe colpite: -1</p>
+            <p class="timer">Timer: -0:00</p>
+        </div>
+        <button onclick="location.reload()">Gioca ancora</button>
+    </div>
 </body>
 
 <script>
-    //dichiarazione elementi html
+    //dichiarazione variabili
+    let talpeColpite = 0;
+    let viteRimaste = 10;
+
+    //dichiarazione funzioni
     let talpaColpita;
     let cambioPosizioneTalpa;
+    let campoColpito;
+    let fineGioco;
 
     //funzione necessaria per l'utilizzo delle jQuery
-    $(document).ready(function(){
-        talpaColpita = function(){
+    $(document).ready(function () {
+
+        talpaColpita = function () {
             cambioPosizioneTalpa();
         }
 
-        cambioPosizioneTalpa = function(){
+        campoColpito = function () {
+            viteRimaste--;
+            $(".viteRimaste").text("Vite rimaste: " + viteRimaste);
+
+            if (viteRimaste <= 0) {
+                fineGioco();
+            }
+        }
+
+        fineGioco = function () {
+
+        }
+
+        cambioPosizioneTalpa = function () {
+            //prendo le grandezze del campo
             let altezzaCampo = $("#campoGioco").height();
             let larghezzaCampo = $("#campoGioco").width();
-            console.log("altezza: "+altezzaCampo+"\nlarghezza: "+larghezzaCampo);
+
+            //prendo le grandezze della talpa
+            let altezzaTalpa = $("#talpa").height();
+            let larghezzaTalpa = $("#talpa").width();
+
+            //genero le cordinatee casuali
+            let x = Math.floor(Math.random() * (larghezzaCampo - larghezzaTalpa));
+            let y = Math.floor(Math.random() * (altezzaCampo - altezzaTalpa));
+
+            //cambio la posizione della talpa
+            $("#talpa").css({
+                "top": y,
+                "left": x
+            });
         }
+
+        //di default faccio comparire la talpa in una posizione diversa ad ogni caricamento
+        cambioPosizioneTalpa();
     });
 </script>
+
 </html>
